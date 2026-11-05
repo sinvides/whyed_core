@@ -1,0 +1,44 @@
+# AI API client protocol
+
+## Endpoint
+Base URL from config `[ai] api_url` (default `http://localhost:8080/v1`).
+Full request URL: `<api_url>/chat/completions`
+(If api_url already ends with `/chat/completions`, it is used as-is.)
+
+## Method
+POST with `Content-Type: application/json` and `Authorization: Bearer <api_key>`.
+
+## Request body
+```json
+{
+  "model": "llama",
+  "messages": [...],
+  "stream": false
+}
+```
+`messages` is a Vec of {role, content} objects accumulated in `window.messages`.
+
+## Response parsing
+Expected OpenAI-compatible shape:
+```json
+{
+  "choices": [
+    { "message": { "content": "<assistant reply>" } }
+  ]
+}
+```
+If the response contains an `error.message` field, that is returned as an error.
+If JSON parsing fails entirely, the raw response text is returned as-is.
+
+## Error handling
+Network errors (connection refused, DNS, timeout) are surfaced to the user.
+In `window.rs`, errors containing "connection refused", "tcp connect error", or
+"10061" trigger a friendly Russian message advising to start the local AI server
+and showing the expected URL.
+
+## Example conversation flow
+1. User types text (not starting with `/`).
+2. Text is pushed as `{"role":"user","content":text}` into `messages`.
+3. `api.chat(&messages)` sends the full history.
+4. Assistant reply is pushed as `{"role":"assistant","content":reply}`.
+5. Reply is printed to terminal with accent color styling.
