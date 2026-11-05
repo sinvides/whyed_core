@@ -1,0 +1,14 @@
+/target
+**/*.rs.bk
+/tools/dev
+/tools/models
+build_err.txt
+config.ini
+.env
+Cargo.lock
+*.log
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
