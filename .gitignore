@@ -5,6 +5,7 @@
 build_err.txt
 config.ini
 .env
+Cargo.lock
 *.log
 .idea/
 .vscode/

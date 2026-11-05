@@ -1,0 +1,11 @@
+{
+  "name": "whyedcode",
+  "version": "1.0.2",
+  "description": "Whyed Code CLI",
+  "bin": {
+    "whyedcode": "whyedcode.exe"
+  },
+  "files": [
+    "whyedcode.exe"
+  ]
+}
