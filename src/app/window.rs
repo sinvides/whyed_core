@@ -94,7 +94,17 @@ impl TerminalWindow {
                     }
                     Err(e) => {
                         let c = &self.config.colors;
-                        print!("\r\n  {}⚠ {}{}\r\n", c.red, e, c.reset);
+                        let lower = e.to_lowercase();
+                        let connection_refused = lower.contains("connection refused")
+                            || lower.contains("tcp connect error")
+                            || lower.contains("10061");
+                        if connection_refused {
+                            print!("\r\n  {}⚠ Не удалось подключиться к AI-серверу{}\r\n", c.red, c.reset);
+                            print!("      {}Проверьте, что сервер запущен на {}{}{}\r\n", c.gray, c.white, self.config.ai_url().unwrap_or_default(), c.reset);
+                            print!("      {}URL ожидается: {}{}/chat/completions{}\r\n", c.gray, c.white, self.config.ai_url().unwrap_or_default(), c.reset);
+                        } else {
+                            print!("\r\n  {}⚠ {}{}\r\n", c.red, e, c.reset);
+                        }
                         print!("\r\n");
                         if let Err(e) = io::stdout().flush() {
                             eprintln!("warning: failed to flush stdout: {}", e);

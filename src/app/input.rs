@@ -1,4 +1,4 @@
-use crate::app::ui::{shorten_path, strip_ansi, visible_width};
+use crate::app::ui::{shorten_path, strip_ansi, visible_width, VISIBLE_SPACE};
 use crate::app::window::TerminalWindow;
 use crossterm::{
     cursor,
@@ -32,14 +32,15 @@ impl TerminalWindow {
         let mut stdout = io::stdout();
         let cwd = env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
         let short = shorten_path(&cwd, 2);
+        let sp = VISIBLE_SPACE;
         let prompt_text = format!(
-            "  {}{}{} {}{}❯{} ",
-            c.dim,
-            short,
-            c.reset,
-            c.bold,
-            c.accent,
-            c.reset
+            "{sp}{sp}{dim}{short}{reset}{sp}{bold}{accent}❯{reset}{sp}",
+            sp = sp,
+            dim = c.dim,
+            short = short,
+            reset = c.reset,
+            bold = c.bold,
+            accent = c.accent,
         );
         let prompt_visible = visible_width(&strip_ansi(&prompt_text));
         write!(stdout, "{}", prompt_text)?;

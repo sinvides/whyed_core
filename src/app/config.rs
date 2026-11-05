@@ -108,7 +108,7 @@ impl Config {
         let mut data: HashMap<String, HashMap<String, String>> = HashMap::new();
         let mut app = HashMap::new();
         app.insert("accent".to_string(), "orange".to_string());
-        app.insert("version".to_string(), "v0.0.1-dev".to_string());
+        app.insert("version".to_string(), "v2.0.12-dev".to_string());
         data.insert("app".to_string(), app);
 
         let mut ai = HashMap::new();
@@ -165,7 +165,7 @@ impl Config {
             .get("app")
             .and_then(|s| s.get("version"))
             .cloned()
-            .unwrap_or_else(|| "v0.0.1-dev".to_string())
+            .unwrap_or_else(|| "v2.0.12-dev".to_string())
     }
 
     pub fn accent(&self) -> String {

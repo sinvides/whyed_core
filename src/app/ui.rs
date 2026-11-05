@@ -3,6 +3,9 @@ use crossterm::terminal;
 use std::ffi::OsStr;
 use std::path::Path;
 
+/// Видимый пробел (U+2003 EM SPACE) — шире обычного, поэтому заметен в терминале.
+pub(crate) const VISIBLE_SPACE: &str = "\u{2003}";
+
 pub(crate) fn visible_width(text: &str) -> usize {
     let mut width = 0;
     for ch in text.chars() {
@@ -86,7 +89,7 @@ pub(crate) fn pad_line(content: &str, total_width: usize) -> String {
     let visible = visible_width(&strip_ansi(content));
     let mut result = content.to_string();
     if visible < total_width {
-        result.push_str(&" ".repeat(total_width - visible));
+        result.push_str(&VISIBLE_SPACE.repeat(total_width - visible));
     }
     result
 }
