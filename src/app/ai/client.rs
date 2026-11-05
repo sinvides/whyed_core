@@ -1,6 +1,6 @@
 use crate::app::config::Config;
 use reqwest::blocking::Client;
-use serde_json::json;
+use serde_json::{json, Value};
 
 pub struct ApiClient {
     client: Client,
@@ -17,7 +17,7 @@ impl ApiClient {
         }
     }
 
-    pub fn chat(&self, messages: &[serde_json::Value]) -> Result<String, String> {
+    pub fn chat(&self, messages: &[Value]) -> Result<String, String> {
         let api_key = match &self.api_key {
             Some(k) => k.clone(),
             None => return Err("api ключ не настроен в секции [ai]".to_string()),
@@ -50,7 +50,7 @@ impl ApiClient {
 
         let text = resp.text().map_err(|e| e.to_string())?;
 
-        if let Ok(val) = serde_json::from_str::<serde_json::Value>(&text) {
+        if let Ok(val) = serde_json::from_str::<Value>(&text) {
             if let Some(choices) = val.get("choices") {
                 if let Some(first) = choices.get(0) {
                     if let Some(msg) = first.get("message") {
