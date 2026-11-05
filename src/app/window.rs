@@ -86,7 +86,7 @@ impl TerminalWindow {
                         self.messages.push(json!({"role": "assistant", "content": reply.clone()}));
                         let c = &self.config.colors;
                         print!("\r\n");
-                        print!("  {}{}   ▸   {}{}{}\r\n", c.bold, c.accent, c.white, reply, c.reset);
+                        print!("    {}{} ИИ{}   ▸   {}{}{}\r\n", c.bold, c.accent, c.reset, c.white, reply, c.reset);
                         print!("\r\n");
                         if let Err(e) = io::stdout().flush() {
                             eprintln!("warning: failed to flush stdout: {}", e);
@@ -94,7 +94,7 @@ impl TerminalWindow {
                     }
                     Err(e) => {
                         let c = &self.config.colors;
-                        print!("\r\n  {} {}{}\r\n", c.red, e, c.reset);
+                        print!("\r\n  {}⚠ {}{}\r\n", c.red, e, c.reset);
                         print!("\r\n");
                         if let Err(e) = io::stdout().flush() {
                             eprintln!("warning: failed to flush stdout: {}", e);
