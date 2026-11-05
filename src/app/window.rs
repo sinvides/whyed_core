@@ -94,7 +94,7 @@ impl TerminalWindow {
                     }
                     Err(e) => {
                         let c = &self.config.colors;
-                        print!("\r\n  {}⚠  {}{}\r\n", c.red, e, c.reset);
+                        print!("\r\n  {} {}{}\r\n", c.red, e, c.reset);
                         print!("\r\n");
                         if let Err(e) = io::stdout().flush() {
                             eprintln!("warning: failed to flush stdout: {}", e);

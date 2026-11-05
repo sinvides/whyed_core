@@ -112,7 +112,7 @@ impl TerminalWindow {
                 .insert("accent".to_string(), name.to_string());
             if let Err(e) = crate::app::config::write_ini(&self.config.path, &self.config.data) {
                 let c = &self.config.colors;
-                print!("\r\n  {}⚠  Не удалось сохранить конфиг: {}{}\r\n", c.red, e, c.reset);
+                print!("\r\n  {}Не удалось сохранить конфиг: {}{}\r\n", c.red, e, c.reset);
                 print!("\r\n");
                 let _ = io::stdout().flush();
                 return;
