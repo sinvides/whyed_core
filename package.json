@@ -1,6 +1,6 @@
 ﻿{
   "name": "whyedcode",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "description": "Whyed Code CLI",
   "bin": {
     "whyedcode": "whyedcode.exe"
@@ -9,6 +9,7 @@
     "whyedcode.exe"
   ]
 }
+
 
 
 
