@@ -111,6 +111,17 @@ impl Config {
         app.insert("version".to_string(), "v0.0.1-dev".to_string());
         data.insert("app".to_string(), app);
 
+        let mut ai = HashMap::new();
+        ai.insert("api".to_string(), "token-abc123".to_string());
+        ai.insert("api_url".to_string(), "http://localhost:8080/v1".to_string());
+        data.insert("ai".to_string(), ai);
+
+        let mut history = HashMap::new();
+        history.insert("enabled".to_string(), "true".to_string());
+        history.insert("max_items".to_string(), "100".to_string());
+        history.insert("save_path".to_string(), "~/.whyed/history.json".to_string());
+        data.insert("history".to_string(), history);
+
         match fs::read_to_string(&path) {
             Ok(content) => {
                 let parsed = parse_ini(&content);
