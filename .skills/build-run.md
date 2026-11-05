@@ -21,13 +21,13 @@ After a release build, copy the new binary over the root launcher:
 ```
 copy target/release/whyedcode.exe whyedcode.exe
 ```
-(On PowerShell: `Copy-Item target/release/whyedcode.exe whyedcode.exe -Force`)
+On PowerShell: `Copy-Item target/release/whyedcode.exe whyedcode.exe -Force`
 
 ## Run
 ```
 .\whyedcode.exe
 ```
-or from anywhere if `whyedcode.exe` (or `whyedcode.cmd`) is on PATH.
+Or from anywhere if `whyedcode.exe` (or `whyedcode.cmd`) is on PATH.
 
 ## Configuration
 Config file: `~/.whyed/config.ini` (Windows: `%USERPROFILE%\.whyed\config.ini`).
@@ -50,4 +50,4 @@ save_path = ~/.whyed/history.json
 ## Notes
 - The app expects a local AI server listening on the configured `api_url`.
 - Default endpoint used by the client: `<api_url>/chat/completions`.
-- If no server is running, the app prints a connection-refused error in Russian.
+- If no server is running, the app prints a connection-refused error message.

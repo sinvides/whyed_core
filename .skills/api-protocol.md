@@ -3,7 +3,7 @@
 ## Endpoint
 Base URL from config `[ai] api_url` (default `http://localhost:8080/v1`).
 Full request URL: `<api_url>/chat/completions`
-(If api_url already ends with `/chat/completions`, it is used as-is.)
+(If `api_url` already ends with `/chat/completions`, it is used as-is.)
 
 ## Method
 POST with `Content-Type: application/json` and `Authorization: Bearer <api_key>`.
@@ -16,7 +16,7 @@ POST with `Content-Type: application/json` and `Authorization: Bearer <api_key>`
   "stream": false
 }
 ```
-`messages` is a Vec of {role, content} objects accumulated in `window.messages`.
+`messages` is a `Vec` of `{role, content}` objects accumulated in `window.messages`.
 
 ## Response parsing
 Expected OpenAI-compatible shape:
@@ -33,7 +33,7 @@ If JSON parsing fails entirely, the raw response text is returned as-is.
 ## Error handling
 Network errors (connection refused, DNS, timeout) are surfaced to the user.
 In `window.rs`, errors containing "connection refused", "tcp connect error", or
-"10061" trigger a friendly Russian message advising to start the local AI server
+"10061" trigger a friendly error message advising to start the local AI server
 and showing the expected URL.
 
 ## Example conversation flow

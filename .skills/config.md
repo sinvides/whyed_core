@@ -1,0 +1,43 @@
+# Configuration reference
+
+## Config file location
+- Path: `~/.whyed/config.ini`
+- Windows: `%USERPROFILE%\.whyed\config.ini`
+- Created automatically on first run if missing.
+
+## Format
+Simple INI: sections in `[section]`, keys as `key = value`.
+Comments start with `;` or `#`.
+
+## Sections and keys
+
+### `[ai]`
+| Key | Default | Description |
+|-----|---------|-------------|
+| `api` | `token-abc123` | AI API key (Bearer token) |
+| `api_url` | `http://localhost:8080/v1` | Base URL of the AI server |
+
+### `[app]`
+| Key | Default | Description |
+|-----|---------|-------------|
+| `accent` | `orange` | Terminal accent color (`orange`, `blue`, `green`, `purple`) |
+| `version` | `v2.0.12-dev` | Application version string |
+
+### `[history]`
+| Key | Default | Description |
+|-----|---------|-------------|
+| `enabled` | `true` | Whether to save command/message history |
+| `max_items` | `100` | Maximum number of history items kept |
+| `save_path` | `~/.whyed/history.json` | History file path |
+
+## Runtime accessors (`src/app/config.rs`)
+- `config.ai_key()` -> `Option<String>`
+- `config.ai_url()` -> `Option<String>`
+- `config.accent()` -> `String`
+- `config.version()` -> `String`
+- `config.history_save_path()` -> `PathBuf` (expands `~` to home dir)
+
+## Overriding values
+Values can be changed at runtime via slash commands:
+- `/accent <name>` — changes accent and persists to `config.ini`.
+- Config is reloaded from disk on each `Config::new()` (startup).

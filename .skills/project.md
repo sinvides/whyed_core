@@ -4,25 +4,25 @@
 - Name: whyed (binary: whyedcode)
 - Language: Rust (edition 2021)
 - Version: 2.0.4 (Cargo.toml), dev version v2.0.12-dev (config)
-- License: MIT (see LICENSE)
+- License: MIT
 
 ## Purpose
 whyed_code is a terminal-based AI pair programmer. It reads user input from stdin,
-sends it as a chat message to a local AI server (OpenAI-compatible /v1/chat/completions
+sends it as a chat message to a local AI server (OpenAI-compatible `/v1/chat/completions`
 endpoint), prints the assistant's reply, and supports slash commands for
 configuration, history, and UI control.
 
 ## Key behaviours
 - Connects to `http://localhost:8080/v1/chat/completions` by default.
-- Reads AI key and base URL from `[ai]` section of ~/.whyed/config.ini.
+- Reads AI key and base URL from `[ai]` section of `~/.whyed/config.ini`.
 - If the server is unreachable (connection refused / os error 10061), prints a
-  friendly Russian error message instead of raw reqwest output.
-- Supports commands: /help, /status, /history, /ai, /accent, /accent <name>,
-  /clear, /exit, /quit.
+  friendly error message instead of raw reqwest output.
+- Supports commands: `/help`, `/status`, `/history`, `/ai`, `/accent`,
+  `/accent <name>`, `/clear`, `/exit`, `/quit`.
 - Non-command input is treated as a user message and sent to the AI.
 
-## Recent fixes (this branch)
+## Recent fixes
 - Replaced ASCII space with U+2003 EM SPACE in input prompt and UI padding so the
-  gap before the ❯ symbol is visibly wider.
-- On connection-refused errors, show actionable Russian message instead of raw
+  gap before the `❯` symbol is visibly wider.
+- On connection-refused errors, show an actionable error message instead of raw
   reqwest error text.
